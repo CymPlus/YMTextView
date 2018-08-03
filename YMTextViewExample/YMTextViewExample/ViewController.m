@@ -24,6 +24,7 @@
     self.textView.frameHeight=100;
     self.textView.backgroundColor=[UIColor orangeColor];
     self.textView.rowSpace=5;
+    self.textView.isFinishKeyboard=YES;
     [self.view addSubview:self.textView];
 }
 

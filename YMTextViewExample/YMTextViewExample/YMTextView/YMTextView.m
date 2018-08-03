@@ -21,6 +21,8 @@
 //适应的高度
 @property (nonatomic,assign)CGFloat adaptHeight;
 
+@property (nonatomic,strong)UIView *keyboardToolView;
+
 @end
 @implementation YMTextView
 
@@ -174,6 +176,16 @@
 
 }
 
+-(void)setIsFinishKeyboard:(BOOL)isFinishKeyboard
+{
+    _isFinishKeyboard=isFinishKeyboard;
+    if (isFinishKeyboard) {
+        self.textView.inputAccessoryView=self.keyboardToolView;
+    }
+    
+}
+
+
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     NSString *comcatstr = [textView.text stringByReplacingCharactersInRange:range withString:text];
@@ -186,6 +198,25 @@
     return YES;
 }
 
+
+-(UIView *)keyboardToolView
+{
+    if (_keyboardToolView==nil) {
+        _keyboardToolView=[[UIView alloc]init];
+        _keyboardToolView.frame=CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44);
+        UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame=CGRectMake([UIScreen mainScreen].bounds.size.width - 65, 7,50, 30);
+        [button setTitle:@"完成"forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_keyboardToolView addSubview:button];
+        [button addTarget:self action:@selector(exitKeyBoard) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _keyboardToolView;
+}
+-(void)exitKeyBoard
+{
+    [self.textView resignFirstResponder];
+}
 -(void)setIsTextNum:(BOOL)isTextNum
 {
     _isTextNum=isTextNum;

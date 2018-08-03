@@ -69,6 +69,9 @@ typedef void (^YMTextValueChangeBlock)(NSString* textVlue);
 //监听文字的改变
 @property (nonatomic,strong)YMTextValueChangeBlock textValue;
 
+//键盘增加完成按钮
+@property (nonatomic,assign)BOOL isFinishKeyboard;
+
 
 
 @end
